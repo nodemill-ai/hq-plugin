@@ -6,7 +6,7 @@ nodemill 사내 업무툴 **hq** 를 Claude 에서 쓴다. 들어 있는 것: �
 
 ## 1. 설치 — claude.ai 한 곳 (Desktop · 웹 · Claude Code 공통)
 
-1. claude.ai (또는 Claude Desktop) → **Customize › Plugins › Add › Add marketplace** → `nodemill-ai/hq-plugin` 입력 → 추가.
+1. claude.ai (또는 Claude Desktop) → **맞춤 설정 (Customize) › 플러그인 › 추가 › 마켓플레이스 추가 › 저장소에서 추가** → `nodemill-ai/hq-plugin` 입력 → 추가. (공개 레포라 GitHub 연결을 묻지 않는다.)
 2. 목록에서 플러그인 **hq** 를 열고 **Add**.
 3. 플러그인의 **Connectors** 탭 → `hq` 가 "Not added" 면 **추가**, 그 다음 **연결 (로그인)** → hq 의 Google 로그인 → **연결 허용** 화면에서 "돌아갈 주소" 가 `claude.ai` 인지 확인하고 **허용**.
 4. 확인: 새 채팅에서 "오늘 뭐 해야 돼" → 브리핑.

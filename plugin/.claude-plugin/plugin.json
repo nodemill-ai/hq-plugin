@@ -1,0 +1,8 @@
+{
+  "name": "hq",
+  "displayName": "hq",
+  "version": "0.2.0",
+  "description": "nodemill hq 업무툴을 Claude 에서 쓴다 — 오늘 브리핑, 자연어로 태스크 작성, HQ MCP 도구 21개. 연결은 hq Google 로그인 (OAuth) 1회.",
+  "author": { "name": "nodemill" },
+  "keywords": ["hq", "tasks", "briefing"]
+}

@@ -1,0 +1,14 @@
+{
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
+  "name": "nodemill",
+  "description": "nodemill 사내 도구 플러그인 — hq (업무툴 MCP + 스킬)",
+  "owner": { "name": "nodemill" },
+  "plugins": [
+    {
+      "name": "hq",
+      "source": "./plugin",
+      "description": "hq 업무툴: 브리핑 · 태스크 작성 스킬 + HQ MCP 서버 (hq Google 로그인 · OAuth)",
+      "category": "productivity"
+    }
+  ]
+}

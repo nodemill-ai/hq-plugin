@@ -2,7 +2,7 @@
   "mcpServers": {
     "hq": {
       "type": "http",
-      "url": "https://hq-psi-indol.vercel.app/api/mcp"
+      "url": "https://hq.nodemill.ai/api/mcp"
     }
   }
 }

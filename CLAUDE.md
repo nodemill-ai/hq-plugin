@@ -4,7 +4,7 @@ nodemill hq 업무툴의 Claude 플러그인 **원본** 이자 공개 마켓플�
 
 ## 구조
 - `.claude-plugin/marketplace.json` (이름 `nodemill`, 플러그인 `hq` → `./plugin`) · `plugin/` (`.claude-plugin/plugin.json` · `.mcp.json` · `skills/<name>/SKILL.md` · `README.md` = 사용자 설치 문서).
-- `.mcp.json` 은 프로덕션 `https://hq-psi-indol.vercel.app/api/mcp` 만, 헤더 없음 (OAuth). 로컬 dev 서버 연결은 `plugin/README.md § 개발자 메모`.
+- `.mcp.json` 은 프로덕션 `https://hq.nodemill.ai/api/mcp` 만, 헤더 없음 (OAuth). 로컬 dev 서버 연결은 `plugin/README.md § 개발자 메모`.
 
 ## 검증
 - `scripts/check.sh` = 스킬 프런트매터 검사 (`name` · `description` · `license` · `compatibility` · `metadata` · `allowed-tools` 만 — claude.ai 가 그 외 키를 거부) → `claude plugin validate plugin` → `claude plugin validate .`. push 전에 돌린다.

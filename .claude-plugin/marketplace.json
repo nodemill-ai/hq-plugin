@@ -7,7 +7,7 @@
     {
       "name": "hq",
       "source": "./plugin",
-      "description": "hq 업무툴: 브리핑 · 태스크 작성 스킬 + HQ MCP 서버 (hq Google 로그인 · OAuth)",
+      "description": "hq 업무툴: 브리핑 · 태스크 · 위키 · 파일 스킬 + HQ MCP 서버 (hq Google 로그인 · OAuth)",
       "category": "productivity"
     }
   ]

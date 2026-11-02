@@ -25,5 +25,5 @@ Claude Code 에 이 레포를 로컬 마켓플레이스로 따로 설치 (`hq@no
 - 로컬 검토: `claude --plugin-dir ./plugin`, 또는 `/plugin marketplace add <이 레포 경로>` → `/plugin install hq@nodemill` (구성원 계정의 `hq@synced` 와 중복되므로 하나만).
 - 로컬 dev 서버 (`hq` 레포 `pnpm dev`) 에 붙이려면 플러그인 대신: `claude mcp add --transport http hq-local http://localhost:3000/api/mcp` → `/mcp` 로그인 (dev DB 구성원의 Google 계정 · OAuth). 스크립트 · curl 은 개인 키 (`pnpm mcp:issue-key <email>` → `Authorization: Bearer hq_…`) — 두 방식을 `/api/mcp` 가 모두 받는다.
 - 스킬 프런트매터는 `name` · `description` (+ `license` · `compatibility` · `metadata` · `allowed-tools`) 만 — claude.ai 가 그 외 필드를 거부한다. `scripts/check.sh` 가 검사한다.
-- 비공개 레포 (`jaewanLee/hq`) 를 마켓플레이스로 직접 추가하는 건 **추가하는 사람의 GitHub 계정에 그 레포 권한이 있을 때만** 된다 (Claude GitHub App 연결) — 그래서 공개 레포를 쓴다 (claude.com/docs/plugins/overview, 2026-10-30).
+- 비공개 레포 (`jaewan-nodemill/hq`) 를 마켓플레이스로 직접 추가하는 건 **추가하는 사람의 GitHub 계정에 그 레포 권한이 있을 때만** 된다 (Claude GitHub App 연결) — 그래서 공개 레포를 쓴다 (claude.com/docs/plugins/overview, 2026-10-30).
 - OAuth 디스커버리 · 토큰 경로는 hq 레포 `CLAUDE.md § 구조` (`/api/mcp` · `/.well-known/*` · `/consent`).

@@ -31,6 +31,8 @@ hq MCP 서버 (`hq`) 의 `getBriefing` 을 **인자 없이** 한 번 호출한�
 - 알림을 다 봤으면 → `markNotificationsRead` (`all: true`, 또는 처리한 항목의 id 들)
 - 새로 만들 일이 나오면 → `task` 스킬의 절차로
 
+"팀 진행 상황 · 프로젝트 어디까지 됐어" 처럼 **팀** 을 물으면 브리핑 대신 `listEpics` (에픽별 진행률 · 기간) + 필요하면 `listTasks { status: "doing" }` · 고객사별은 `listCustomers` (열린 태스크 수) 로 답한다 — 웹 홈 (`/`) 에 같은 내용이 있다.
+
 ## 규칙
 
 - 담당자 · 작성자 id 를 사람 이름으로 바꿔야 하면 `listMembers` 를 한 번 호출해 매핑한다 (이름 · 직책 `title`). 이메일은 쓰지 않는다.

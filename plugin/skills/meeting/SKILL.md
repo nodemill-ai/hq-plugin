@@ -33,7 +33,7 @@ description: 미팅 회의록 정리 · 올리기 · 찾기. 사용자가 "미�
    1. 미팅 폴더 생성 (부모 = 1 의 미팅 폴더 id).
    2. `회의록.md` — `textContent` = 회의록 전문 · `contentMimeType: "text/markdown"` · **`disableConversionToGoogleType: true`** (안 그러면 Google 문서로 바뀌어 hq 가 본문을 못 그린다).
    3. 자료 — `base64Content` + `contentMimeType` (같은 옵션). 첨부 바이트를 넘길 수 없으면 회의록만 올리고 "자료는 Drive 앱 · hq 파일 화면에서 이 폴더로 올려 주세요" 로 폴더 링크를 준다.
-6. **후속 태스크**: 확인받은 항목마다 `createTask` → `linkResource { taskId, kind: "meeting", ref: <미팅 폴더 id>, title: "<YYYY-MM-DD> <주제 (공백)>" }` → 만든 키를 회의록 "후속 태스크" 절에 채워 커넥터로 `회의록.md` 를 갱신한다.
+6. **후속 태스크**: 확인받은 항목마다 `createTask` (사외 미팅이면 `customer` = 그 미팅의 회사 이름 — `listMeetings` 의 `company` 그대로) → `linkResource { taskId, kind: "meeting", ref: <미팅 폴더 id>, title: "<YYYY-MM-DD> <주제 (공백)>" }` → 만든 키를 회의록 "후속 태스크" 절에 채워 커넥터로 `회의록.md` 를 갱신한다.
 7. **확인 · 보고**: `getMeeting { meetingId: <폴더 id> }` 로 회의록 (`minutes.status: ok`) · 자료가 보이는지 확인 → 미팅 제목 · 자리 · hq 링크 (`hqUrl` = `https://hq.nodemill.ai/meetings?m=<id>`) · 만든 태스크 키를 보고. 목록 화면에는 최대 5분 늦게 보일 수 있다 (링크는 바로 열린다).
 
 ## 찾기 · 회상 — "지난 광일 미팅 뭐였지" · "ERP 시연 때 뭐 정했지"

@@ -38,10 +38,10 @@ description: hq 비용 기록 · 조회 · 고정비. 사용자가 "영수증 �
 
 ## 고정비
 
-- **목록 · 이번 달 얼마**: `listCostItems { month? }` (기본 이번 달, `includeArchived: true` 면 해지 포함). 항목마다 `recordedAmount` (그 달 기록 합계) — **`null` 이면 아직 기록이 없고 `expectedAmount` 는 예상일 뿐**이라고 구분해서 말한다. `billingDate` · `nextBillingDate` 로 결제일.
-- **AWS 이번 달 지금 얼마**: `listCostItems` 에서 `liveSource: "aws"` 항목의 `live` (`amount` · `asOf` = AWS 기준 시각 · `fetchedAt` = hq 가 가져온 시각) — 하루 1회 가져온 **현재까지 실제 지출 (표시용)** 이라 장부 금액 (`recordedAmount` · 합계) 과 다르다고 말한다. `live` 가 `null` 이면 아직 안 가져왔거나 연결된 항목이 없다 (`liveSources[].stale` = 36시간 넘게 갱신 안 됨). 항목에 붙이기 · 떼기 = `updateCostItem { costItemId, liveSource: "aws" | null }` (사용자가 말했을 때만). 월 확정 금액은 지금처럼 기록으로.
+- **목록 · 이번 달 얼마**: `listCostItems { month? }` (기본 이번 달, `includeArchived: true` 면 해지 포함). 항목마다 **`amount` 를 말한다** — `kind: "recorded"` = 기록 합계 `totals` (통화별 그대로 — USD 구독을 원화 카드로 결제하면 KRW · 환산하지 않는다) · `"expected"` = **아직 기록 없음 · 예상일 뿐** · `"live"` = 실시간 현재 금액 · `"none"` = 그 달 청구 기록 없음 · `"no-billing"` = 매년 항목의 결제월 아님. (`recordedAmount` 는 옛 필드 — 항목 통화 기록만이라 쓰지 않는다.) `billingDate` · `nextBillingDate` 로 결제일.
+- **실시간 항목 (AWS)**: `liveSource: "aws"` 항목은 예상 금액을 쓰지 않는다. **이번 달** = `amount.live` (`amount` · `asOf` = AWS 기준 시각) — 하루 1회 가져온 **현재까지 실제 지출 (표시용)** 이라 장부 금액 · 합계와 다르다고 말한다 · `null` 이면 아직 안 가져옴 (`liveSources[].stale` = 36시간 넘게 갱신 안 됨). **지난 달** = 그 달 사용분 청구 기록 (다음 달 초 카드 결제 — 그 달 행으로 귀속 · `getCostSummary` 합계는 결제 날짜 기준이라 한 달 어긋난다고 말한다). 항목에 붙이기 · 떼기 = `updateCostItem { costItemId, liveSource: "aws" | null }` (사용자가 말했을 때만). 청구 금액은 `createExpense` 로 실제 금액 (예상대로 기록 없음).
 - **합계 · 추이**: `getCostSummary { month?, months? }` ("최근 6개월" → `months: 6`). 확인된 기록만 센다 — 예상은 섞이지 않고 환율 환산도 없다. 분류별 = `byCategory`, 반복 항목에 안 묶인 영수증 · 운영비 = `other`.
-- **새 구독 · 고정비 항목**: 사용자가 등록하자고 했을 때만 `createCostItem { name, category, cycle, billingDay, billingMonth? (yearly 만), expectedAmount, currency, paymentMethod, card?, plan?, note? }`. 빠진 필드는 한 번에 묻는다. 법인카드면 위 등록 3 과 같은 카드 고르기.
+- **새 구독 · 고정비 항목**: 사용자가 등록하자고 했을 때만 `createCostItem { name, category, cycle, billingDay, billingMonth? (yearly 만), expectedAmount, currency, paymentMethod, card?, plan?, note?, liveSource? }` — 정액 구독 (Claude · Codex 등) 은 `expectedAmount` 필수 · 실시간 항목 (`liveSource: "aws"`) 은 `expectedAmount` 를 빼고 만든다. 빠진 필드는 한 번에 묻는다. 법인카드면 위 등록 3 과 같은 카드 고르기.
 - **해지 · 해지 취소**: `updateCostItem { costItemId, archived: true | false }` — 기록은 남고 목록 · 브리핑 "곧 결제" 에서만 빠진다. 해지는 사용자가 말했을 때만, 항목 이름을 확인한 뒤. 금액 · 결제일 · 카드 변경도 같은 도구 (바꿀 필드만).
 - 결제 뒤 "이번 달 기록해줘" → 위 등록 흐름으로 `costItemId` 를 묶어 `createExpense` (금액은 사용자에게 확인 — 예상 금액과 다를 수 있다).
 

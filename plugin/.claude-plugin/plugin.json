@@ -1,7 +1,7 @@
 {
   "name": "hq",
   "displayName": "hq",
-  "version": "0.8.0",
+  "version": "0.9.0",
   "description": "nodemill hq 업무툴을 Claude 에서 쓴다 — 오늘 브리핑, 자연어로 태스크 작성, 위키 문서 쓰기 · 읽기, 공유 드라이브 파일 올리기 · 찾기, 비용 기록 (영수증 · 고정비), 미팅 회의록 정리 · 찾기 (후속 태스크 연결), HQ MCP 도구 38개 (epic · 태스크 · 사일로 · 댓글 · 링크 · 알림 · 검색 · 위키 · 드라이브 · 비용 · 미팅). 연결은 hq Google 로그인 (OAuth) 1회.",
   "author": {
     "name": "nodemill"

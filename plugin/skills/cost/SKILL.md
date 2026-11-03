@@ -39,6 +39,7 @@ description: hq 비용 기록 · 조회 · 고정비. 사용자가 "영수증 �
 ## 고정비
 
 - **목록 · 이번 달 얼마**: `listCostItems { month? }` (기본 이번 달, `includeArchived: true` 면 해지 포함). 항목마다 `recordedAmount` (그 달 기록 합계) — **`null` 이면 아직 기록이 없고 `expectedAmount` 는 예상일 뿐**이라고 구분해서 말한다. `billingDate` · `nextBillingDate` 로 결제일.
+- **AWS 이번 달 지금 얼마**: `listCostItems` 에서 `liveSource: "aws"` 항목의 `live` (`amount` · `asOf` = AWS 기준 시각 · `fetchedAt` = hq 가 가져온 시각) — 하루 1회 가져온 **현재까지 실제 지출 (표시용)** 이라 장부 금액 (`recordedAmount` · 합계) 과 다르다고 말한다. `live` 가 `null` 이면 아직 안 가져왔거나 연결된 항목이 없다 (`liveSources[].stale` = 36시간 넘게 갱신 안 됨). 항목에 붙이기 · 떼기 = `updateCostItem { costItemId, liveSource: "aws" | null }` (사용자가 말했을 때만). 월 확정 금액은 지금처럼 기록으로.
 - **합계 · 추이**: `getCostSummary { month?, months? }` ("최근 6개월" → `months: 6`). 확인된 기록만 센다 — 예상은 섞이지 않고 환율 환산도 없다. 분류별 = `byCategory`, 반복 항목에 안 묶인 영수증 · 운영비 = `other`.
 - **새 구독 · 고정비 항목**: 사용자가 등록하자고 했을 때만 `createCostItem { name, category, cycle, billingDay, billingMonth? (yearly 만), expectedAmount, currency, paymentMethod, card?, plan?, note? }`. 빠진 필드는 한 번에 묻는다. 법인카드면 위 등록 3 과 같은 카드 고르기.
 - **해지 · 해지 취소**: `updateCostItem { costItemId, archived: true | false }` — 기록은 남고 목록 · 브리핑 "곧 결제" 에서만 빠진다. 해지는 사용자가 말했을 때만, 항목 이름을 확인한 뒤. 금액 · 결제일 · 카드 변경도 같은 도구 (바꿀 필드만).

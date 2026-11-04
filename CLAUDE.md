@@ -11,6 +11,6 @@ nodemill hq 업무툴의 Claude 플러그인 **원본** 이자 공개 마켓플�
 - 로컬 검토: `claude --plugin-dir ./plugin` 또는 `/plugin marketplace add <이 레포 경로>` → `/plugin install hq@nodemill`. 구성원 계정에 `hq@synced` 가 있으면 둘이 중복된다 (도구 80개) — 하나만.
 
 ## 규칙
-- 스킬이 부르는 MCP 도구 이름 · 인자는 hq 레포 `server/mcp/server.ts` (`MCP_TOOL_NAMES`, 40개) 가 원본 — hq 에서 도구를 바꾸면 여기 스킬도 같이 고친다.
+- 스킬이 부르는 MCP 도구 이름 · 인자는 hq 레포 `server/mcp/server.ts` (`MCP_TOOL_NAMES`, 42개) 가 원본 — hq 에서 도구를 바꾸면 여기 스킬도 같이 고친다.
 - 버전은 `plugin/.claude-plugin/plugin.json` 의 `version` — 사용자에게 보이는 변경마다 올린다. main 에 push 하면 "Sync automatically" 켠 계정에 자동 반영.
 - 커밋 메시지 `type: 설명` 50자 이하. Claude 관련 문구 금지.

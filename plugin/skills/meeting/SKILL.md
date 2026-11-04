@@ -62,7 +62,7 @@ description: 미팅 준비 (안건 · 지난 액션) · 회의록 정리 · 올�
    - 사내 갱신: `getTaskByKey` (id) → `changeTaskStatus` · 마감 · 담당이 바뀌었으면 `updateTask` → 이 미팅에도 `linkResource` (같은 형식).
    - 사내 종료: `getTaskByKey` → `changeTaskStatus { taskId, status: "done" }` → `addComment { taskId, body: "<YYYY-MM-DD> <주제 (공백)> 에서 종료 — <근거 한 줄>" }` → 이 미팅에도 `linkResource` (미팅 화면에서 종료가 보이게).
    - 사내 이월: "1. 지난 액션 확인" 에서 언급 없이 미완료로 남은 키도 전부 이 미팅에 `linkResource` — 안 그러면 다음 주 준비 (4번) 에서 빠진다.
-   - 사내 마감 미정: `dueDate` 없이 만들고 `description` 첫 줄 `마감 미정 — <원문>` (담당이 일정을 정한다).
+   - 사내 마감 미정: `dueDate` 없이 `duePending: true` 로 만든다 (담당의 브리핑 "확인 요청" 에 "마감 정하기" 로 뜬다 · 담당이 `dueDate` 를 넣으면 풀린다).
    - 사내 "각자 · 모두": 참석자마다 1개 (`<할 일> — <이름>`) · 전부 이 미팅에 `linkResource`.
    - 담당이 정해지지 않은 행은 만들지 않는다 (키 칸 `(담당 정해지면)`).
 7. **확인 · 보고**: `getMeeting { meetingId: <폴더 id> }` 로 회의록 (`minutes.status: ok`) · 자료가 보이는지 확인 → 미팅 제목 · 자리 · hq 링크 (`hqUrl` = `https://hq.nodemill.ai/meetings?m=<id>`) · 만든 태스크 키를 보고. 목록 화면에는 최대 5분 늦게 보일 수 있다 (링크는 바로 열린다).

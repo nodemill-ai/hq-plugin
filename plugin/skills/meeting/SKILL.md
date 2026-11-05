@@ -32,7 +32,7 @@ description: 미팅 준비 (안건 · 지난 액션) · 회의록 정리 · 올�
 
 1. **일정**: `listEvents` 에서 그 미팅 — 주간 = `{ from: 오늘, to: 오늘+7 }` 의 제목 `주간 미팅` 중 아직 끝나지 않은 첫 것 · 주제 = 말한 날짜 하루. 없으면 만들지 않고 "회사 캘린더에 일정부터 잡을까요?" (`schedule` 스킬). `UNAVAILABLE` 이면 일정 확인 없이 사용자가 말한 날짜 · 주제로 진행 (일정을 만들자고 하지 않는다). 주제 = 일정 제목 (공백 → `-`).
 2. **노트 찾기**: 일정의 `meeting` 이 있으면 그 폴더 · 없으면 `listMeetings { kind: "internal", from: 그날, to: 그날 }` 에서 같은 주제.
-   - 있으면 `getMeeting` 으로 지금 `회의록.md` 를 읽고 **`## 안건` 표에 행 + `## 기타` 앞에 그 안건 블록을 덧붙인다** (번호 = 마지막 + 1 · 다른 사람이 쓴 행 · 블록을 지우거나 고치지 않는다) → 커넥터 `update_file` (같은 옵션).
+   - 있으면 `getMeeting` 으로 지금 `회의록.md` 를 읽고 **`## 안건` 표에 행 + `## 기타` 앞에 그 안건 블록을 덧붙인다** (번호 = 마지막 + 1 · 다른 사람이 쓴 행 · 블록을 지우거나 고치지 않는다) → 새 `회의록.md` 로 올리고 옛 파일은 `회의록_준비.md` 로 rename (§ 규칙).
    - 없으면 자리 규칙대로 폴더 (부모 = 정리 1번 노드밀의 `운영/미팅` 아래 `YYYY/MM` — 정리 5-1) + `회의록.md` (`status: 준비` · 머리 3줄 · 지난 액션 · 안건 표 · 안건 블록 (논의 · 결정 · 액션 빈 틀) · 기타 빈 틀 · 다음 미팅으로 넘김 · 자료) 를 만든다 (정리 5번과 같은 옵션).
 3. **안건 1개** = 표 1행 `| N | [제목](#<앵커>) | <기안> |` + 블록 1개. 기안 = 말한 사람 전체 이름 (모르면 묻는다). 말에 담긴 배경 · 선택지 · 일정은 `**상세**` 불릿 (결정이 필요하면 선택지 A / B 까지 — 목적은 묻지 않는다) · 언급된 태스크 키 · 로드맵 · 위키 · URL 은 `**자료**` 링크 (`getTaskByKey` · `listRoadmaps` · `getWikiPage` 로 확인한 것만 — 못 찾으면 이름만). 상세가 없으면 `-`.
 4. **지난 액션 (주간 · 노트를 처음 만들 때만 — 덧붙이기 때는 `## 지난 액션` 을 건드리지 않는다)**: `listMeetings { kind: "internal", q: "주간 미팅", to: 어제 }` 에서 `topic` 이 `주간-미팅` 인 첫 행 → `getMeeting`.
@@ -55,11 +55,11 @@ description: 미팅 준비 (안건 · 지난 액션) · 회의록 정리 · 올�
 3. **후속 태스크 후보**: 결정 사항 · 할 일에서 뽑는다 (담당 · 마감 포함). `task` 스킬 규칙대로 사일로 · 담당 id 를 조회해 둔다 (아직 만들지 않는다).
    - 사내: **안건마다 액션 ≥ 1** — 없으면 `액션 없음 — <이유>` (공유 안건은 `액션 없음 — 공유`). 지난 액션은 `종료 → done` / `기존 갱신` / 그대로 (`clova-변환.md` § 3).
 4. **한 줄 확인**: (사내는 "새 태스크 N · 갱신 M · 종료 K · 마감 미정 L 건 (담당이 정함) · 확인 필요 J 행" + 새 태스크마다 사일로 추천 (`listSilos` · `task` 스킬 규칙) 을 함께 — 마감은 묻지 않고 `확인 필요` (담당 · 사일로) 만 여기서 한 번에 묻는다 · 답 전에는 아무것도 쓰지 않는다) "`고객사/광일금속/미팅/2026/11/2026-11-03_ERP-1차-시연/` 에 회의록 + 자료 2개 · 후속 태스크 3개 (① … ② … ③ …) — 올릴까요?" — 사용자가 빼거나 고친 것을 반영한다.
-5. **올리기** (Google Drive 커넥터 `create_file` · 준비 노트를 채운 사내 미팅은 그 파일 (`minutes.fileId`) 을 `update_file` — 새 파일을 만들지 않는다). 사내 순서 = (폴더가 없으면 폴더 생성) → 6 의 hq 반영 → 키를 채운 회의록을 **한 번** 쓴다 (기존 파일이면 쓰기 직전 `getMeeting` 으로 다시 읽어 합침 · 키 자리표시 없이):
+5. **올리기** (Google Drive 커넥터 `create_file` · 준비 노트가 있으면 그 파일 (`minutes.fileId`) 은 `update_file { fileId, title: "회의록_준비.md" }` 로 이름만 바꾼다 · 삭제 안 함). 사내 순서 = (폴더가 없으면 폴더 생성) → 6 의 hq 반영 → 키를 채운 회의록을 **한 번** 쓴다 (기존 파일이면 쓰기 직전 `getMeeting` 으로 다시 읽어 합침 · 키 자리표시 없이):
    1. 미팅 폴더 생성 — 부모 = 1 의 미팅 폴더 아래 `YYYY/MM` (미팅 날짜): `listDriveFolder { folderId: <미팅 폴더 id> }` 에서 `YYYY` → 그 안 `MM` 을 찾고, 없으면 커넥터로 만든다 (승인 없이).
-   2. `회의록.md` — `textContent` = 회의록 전문 · `contentMimeType: "text/markdown"` · **`disableConversionToGoogleType: true`** (안 그러면 Google 문서로 바뀌어 hq 가 본문을 못 그린다).
+   2. `회의록.md` — `create_file { parentId: 미팅 폴더, title: "회의록.md", textContent` = 회의록 전문 · `contentMimeType: "text/markdown"` · **`disableConversionToGoogleType: true`** (안 그러면 Google 문서로 바뀌어 hq 가 본문을 못 그린다).
    3. 자료 — `base64Content` + `contentMimeType` (같은 옵션). 첨부 바이트를 넘길 수 없으면 회의록만 올리고 "자료는 Drive 앱 · hq 파일 화면에서 이 폴더로 올려 주세요" 로 폴더 링크를 준다.
-6. **후속 태스크**: 확인받은 항목마다 `createTask` (사외 미팅이면 `customer` = 그 미팅의 회사 이름 — `listMeetings` 의 `company` 그대로) → `linkResource { taskId, kind: "meeting", ref: <미팅 폴더 id>, title: "<YYYY-MM-DD> <주제 (공백)>" }` → 만든 키를 회의록 "후속 태스크" 절 (사내 = 그 안건 · 기타 블록 액션 표의 키 칸 · 링크 `[HQ-0000](https://hq.nodemill.ai/tasks?task=HQ-0000)`) 에 채워 커넥터로 `회의록.md` 를 갱신한다.
+6. **후속 태스크**: 확인받은 항목마다 `createTask` (사외 미팅이면 `customer` = 그 미팅의 회사 이름 — `listMeetings` 의 `company` 그대로) → `linkResource { taskId, kind: "meeting", ref: <미팅 폴더 id>, title: "<YYYY-MM-DD> <주제 (공백)>" }` → 만든 키를 회의록 "후속 태스크" 절 (사내 = 그 안건 · 기타 블록 액션 표의 키 칸 · 링크 `[HQ-0000](https://hq.nodemill.ai/tasks?task=HQ-0000)`) 에 채워 5 의 `회의록.md` 에 한 번에 담는다.
    - 사내 갱신: `getTaskByKey` (id) → `changeTaskStatus` · 마감 · 담당이 바뀌었으면 `updateTask` → 이 미팅에도 `linkResource` (같은 형식).
    - 사내 종료: `getTaskByKey` → `changeTaskStatus { taskId, status: "done" }` → `addComment { taskId, body: "<YYYY-MM-DD> <주제 (공백)> 에서 종료 — <근거 한 줄>" }` → 이 미팅에도 `linkResource` (미팅 화면에서 종료가 보이게).
    - 사내 이월: `## 지난 액션` 에서 언급 없이 미완료로 남은 키도 전부 이 미팅에 `linkResource` — 안 그러면 다음 주 준비 (4번) 에서 빠진다.
@@ -79,10 +79,11 @@ description: 미팅 준비 (안건 · 지난 액션) · 회의록 정리 · 올�
 
 1. `listMeetings { company, from }` 로 미팅을 찾는다 (여럿이면 고르게 한다).
 2. 파일 이름 · 미팅을 한 줄로 확인 → 커넥터로 그 미팅 폴더 (`id`) 에 업로드 (`disableConversionToGoogleType: true`).
-3. 회의록이 있으면 "자료" 절에 파일 이름을 더할지 묻는다 (`getMeeting` 의 `minutes.fileId` 를 커넥터로 갱신).
+3. 회의록이 있으면 "자료" 절에 파일 이름을 더할지 묻는다 (`getMeeting` 의 `minutes.fileId` → 새 `회의록.md` 로 올리고 옛 파일 rename · § 규칙).
 
 ## 규칙
 
+- 커넥터 `update_file` 은 내용을 못 바꾼다 (메타데이터만) — 내용 변경은 항상 새 파일 + 옛 파일 rename (옛 것은 `회의록_준비.md` · 이미 있으면 `회의록_준비2.md`). 미팅 중 · 준비 노트를 다시 고칠 때도 같다.
 - 회의록 고치기는 `getMeeting` 으로 지금 내용을 읽은 뒤 합쳐서 — 다른 사람이 Drive 에서 고친 내용을 덮어쓰지 않는다.
 - 위키 회의록 템플릿 (`_templates/회의록.md`) · 위키 문서로 미팅을 쓰지 않는다 — 미팅은 이 스킬 (공유 드라이브).
 - 미팅 위치 밖 폴더 id 는 hq 에서 `NOT_FOUND` — 자리 규칙대로 옮기자고 안내한다 (이동은 사용자가 Drive 앱에서 — 커넥터로는 못 옮긴다 · 다시 만들고 지우는 우회는 폴더 id 가 바뀌어 태스크 연결이 끊기므로 하지 않는다).

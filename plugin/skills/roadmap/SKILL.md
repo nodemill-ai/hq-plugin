@@ -1,6 +1,6 @@
 ---
 name: roadmap
-description: hq 로드맵 짜기 · 에픽 배치 · 진행 보기 · 닫기. "로드맵 짜 줘", "ERP 로드맵 만들어", "3월까지 ~ 계획 세워 줘", "이 에픽 로드맵에 넣어", "에픽 기간 바꿔", "로드맵 진행 어때", "늦어지는 거 있어?" 라고 하면. 도구 — listRoadmaps · getRoadmap · createRoadmap · updateRoadmap · closeRoadmap · reopenRoadmap · createEpic · updateEpic.
+description: hq 로드맵 짜기 · 에픽 배치 · 진행 보기 · 닫기. "로드맵 짜 줘", "ERP 로드맵 만들어", "3월까지 ~ 계획 세워 줘", "이 에픽 로드맵에 넣어", "에픽 기간 바꿔", "로드맵 진행 어때", "늦어지는 거 있어?" 라고 하면. 도구 — listRoadmaps · getRoadmap · createRoadmap · updateRoadmap · closeRoadmap · reopenRoadmap · createEpic · updateEpic (+ takeOutParkingItem).
 ---
 
 # hq 로드맵
@@ -13,6 +13,7 @@ description: hq 로드맵 짜기 · 에픽 배치 · 진행 보기 · 닫기. "�
 3. 표로 확인받는다 (실제 날짜) — `| 에픽 | 계획 시작 | 계획 끝 | 첫 태스크 (선택) |` · 기존 에픽은 "기존 — 이 로드맵으로 옮김".
 4. `createRoadmap { siloId, name, goal, startDate, endDate }` → 에픽마다 `createEpic { siloId, name, roadmapId, startDate, endDate }`. `created: false` 면 `updateEpic { epicId, roadmapId, startDate, endDate }`. 첫 태스크는 원할 때만 `task` 스킬로.
 5. 보고: 로드맵 이름 · 기간 → 에픽 한 줄씩.
+6. 보류 항목에서 꺼낸 로드맵이면 (`parking` 스킬 "꺼내기") 끝에 `takeOutParkingItem { itemId, made }` — 이번에 만든 로드맵 · 에픽 · 태스크 id 전부.
 
 ## 에픽 넣기 · 빼기 · 기간
 - 넣기 `updateEpic { epicId, roadmapId }` · 빼기 `roadmapId: null` · 기간 `startDate` · `endDate` (`null` = 비움).

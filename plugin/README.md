@@ -33,7 +33,7 @@ nodemill 사내 업무툴 **hq** 를 Claude 에서 쓴다. 연결은 hq Google �
 
 ## 2. 하지 말 것 (중복 주의)
 
-Claude Code 에 이 레포를 로컬 마켓플레이스로 따로 설치 (`hq@nodemill`, 개발자용) 하면 hq 서버가 **두 벌** 뜬다 (도구 80개). 구성원은 1 의 synced 만 쓴다.
+Claude Code 에 이 레포를 로컬 마켓플레이스로 따로 설치 (`hq@nodemill`, 개발자용) 하면 hq 서버가 **두 벌** 뜬다 (도구 110개). 구성원은 1 의 synced 만 쓴다.
 
 ## 개발자 메모
 

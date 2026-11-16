@@ -51,7 +51,7 @@ hq 는 미팅 위치 (`운영/미팅` · `고객사/<회사>/미팅`) 아래에�
 4. **채울 내용** (모양 = `references/사내-회의록.md`):
    - `## 지난 액션` 표 = 직전 미팅 `tasks` (`key · title · status`) 중 **done 이 아닌 것** (키 칸 = 키 링크 · 상태 원본 = hq 연결 · 정리 6번이 미완료 액션을 매주 이월 연결한다). 담당 · 마감은 그 회의록의 안건 · 기타 블록 액션 표 · `## 지난 액션` 표에서 (옛 구조 회의록이면 "5. 액션 아이템" · "1." 표), 없으면 `getTaskByKey` (`assigneeId` → `listMembers` 이름). 첫 미팅이면 `없음 (첫 미팅)` 1행.
    - 넘어온 안건 = 직전 회의록 `## 다음 미팅으로 넘김` (옛 구조 "6.") 항목마다 안건 표 1행 + 블록 1개 (번호 = 마지막 + 1) — 제목 끝 ` (넘어옴)` · 기안 = 지난 블록의 기안 (없으면 `—`) · 상세 첫 불릿 = `지난 미팅 [YYYY-MM-DD 주제](<hqUrl>) 에서 넘어옴 — <이유>`. 이미 있는 안건이면 다시 넣지 않는다.
-5. **쓰기**: `getMeeting { meetingId }` (이 미팅) 의 `minutes` 위에 4 를 합친다 — 다른 안건 · 내용은 한 글자도 바꾸지 않는다 → `writeMeetingMinutes { meetingId, content, baseModifiedTime: minutes.modifiedTime }` (`content` = `---` + `minutes.frontmatter` 의 키 그대로 (`title` · `date` · `attendees` · `tags` · `status`) + `---` + `minutes.body` 를 고친 것). **`stale` 이면 `getMeeting` 으로 다시 읽어 새 내용 위에 같은 변경을 다시 합쳐 다시 쓴다** (덮어쓰지 않는다 · 두 번째도 `stale` 이면 멈추고 알린다).
+5. **쓰기**: `getMeeting { meetingId }` (이 미팅) 의 `minutes.content` (회의록.md 원문 그대로 · frontmatter 포함) 위에 4 를 합친다 — 다른 안건 · 내용 · frontmatter 는 한 글자도 바꾸지 않는다 → `writeMeetingMinutes { meetingId, content, baseModifiedTime: minutes.modifiedTime }` (`content` = 그 원문을 고친 것 — frontmatter 를 따로 다시 조립하지 않는다). **`stale` 이면 `getMeeting` 으로 다시 읽어 새 내용 위에 같은 변경을 다시 합쳐 다시 쓴다** (덮어쓰지 않는다 · 두 번째도 `stale` 이면 멈추고 알린다).
 6. **보고**: 미팅 · hq 링크 · 안건 수 · 넘어온 안건 수 · 미완료 지난 액션 수 · "미팅 뒤 CLOVA 요약을 붙여 '주간 미팅 정리해 줘' 하세요".
 
 ## 정리 — "회의록 정리해 줘" · "주간 미팅 정리해 줘" · "미팅 정리해 줘" (+ CLOVA 요약 · 메모 · 슬라이드)
@@ -93,7 +93,7 @@ hq 는 미팅 위치 (`운영/미팅` · `고객사/<회사>/미팅`) 아래에�
 
 1. `listMeetings { company, from }` 로 미팅을 찾는다 (여럿이면 고르게 한다).
 2. 파일 이름 · 미팅을 한 줄로 확인 → 커넥터 `create_file` 로 그 미팅 폴더 (`id`) 에 업로드 (`disableConversionToGoogleType: true`).
-3. 회의록이 있으면 "자료" 절에 파일 이름을 더할지 묻는다 → `getMeeting` → 합쳐서 `writeMeetingMinutes` (§ 준비 5 와 같은 모양).
+3. 회의록이 있으면 "자료" 절에 파일 이름을 더할지 묻는다 → `getMeeting` → `minutes.content` 에 합쳐서 `writeMeetingMinutes` (§ 준비 5 와 같은 모양).
 
 ## 규칙
 

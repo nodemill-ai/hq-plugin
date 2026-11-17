@@ -1,6 +1,6 @@
 ---
 name: task
-description: hq 태스크 만들기 · 조회 · 수정 · 댓글 · 상태 변경. "태스크 만들어", "할 일 등록", "ERP 에 ~ 추가", "내 할 일 뭐 있어", "조성우 할 일 뭐 있어", "이번 주 마감", "광일 건 뭐 있어", "HQ-12 마감 금요일로", "HQ-12 에 댓글 달아", "HQ-12 끝났어" 라고 하면. 도구 — createTask · listTasks · getTaskByKey · updateTask · addComment · changeTaskStatus (+ listSilos · listMembers · listEpics · listCustomers).
+description: hq 태스크 만들기 · 조회 · 수정 · 댓글 · 확인 요청 · 상태 변경. "태스크 만들어", "할 일 등록", "ERP 에 ~ 추가", "내 할 일 뭐 있어", "조성우 할 일 뭐 있어", "이번 주 마감", "광일 건 뭐 있어", "HQ-12 마감 금요일로", "HQ-12 에 댓글 달아", "HQ-12 대표님한테 확인 요청해 줘", "확인했다고 해 줘", "내가 보낸 요청 확인됐어?", "HQ-12 끝났어" 라고 하면. 도구 — createTask · listTasks · getTaskByKey · updateTask · addComment · acknowledgeRequest · listRequests · changeTaskStatus (+ listSilos · listMembers · listEpics · listCustomers).
 ---
 
 # hq 태스크
@@ -16,7 +16,7 @@ description: hq 태스크 만들기 · 조회 · 수정 · 댓글 · 상태 변�
 6. 보고: `HQ-0042 — 제목 / 사일로 / 담당 / 마감` 한 줄.
 
 ## 조회 — "내 할 일 뭐 있어" · "조성우 할 일" · "이번 주 마감" · "광일 건 뭐 있어"
-- `listTasks { mine?, assigneeIds?, dueWithinDays?, customer?, status? }` → 한 줄씩 `키 제목 (마감)`. 내 것 = `mine: true` · 다른 사람 · 여러 명 ("나랑 조성우") = `listMembers` 의 id 로 `assigneeIds`. 담당 이름은 `listMembers`.
+- `listTasks { mine?, assigneeIds?, dueWithinDays?, customer?, status? }` → 한 줄씩 `키 제목 (마감)`. 내 것 = `mine: true` · 다른 사람 · 여러 명 ("나랑 조성우") = `listMembers` 의 id 로 `assigneeIds`. 담당 이름은 `listMembers`. 마감으로 묻는 조회 ("이번 주 마감") 는 결과에서 `status: done` 을 뺀다 (끝낸 일도 계획 마감이 남는다).
 
 ## 수정 — "HQ-12 마감 다음 주 금요일로" · "담당 재완으로" · "제목 바꿔"
 1. `getTaskByKey { key: "HQ-0012" }` → 바뀔 값 한 줄 확인 → `updateTask { taskId, <바꿀 필드만> }` (`null` = 비움 · 마감을 넣으면 마감 미정이 풀린다).
@@ -24,8 +24,14 @@ description: hq 태스크 만들기 · 조회 · 수정 · 댓글 · 상태 변�
 ## 댓글 — "HQ-12 에 '…' 댓글 달아"
 - `getTaskByKey` → `addComment { taskId, body }` (만든 사람 · 담당에게 알림).
 
+## 확인 요청 — "HQ-12 대표님한테 확인 요청해 줘 — …" · "확인했다고 해 줘" · "내가 보낸 요청 확인됐어?"
+- 보내기: `getTaskByKey` → 받을 사람 = `listMembers { activeOnly: true }` 의 id (이름 · 직책 · 여러 명 가능 · 나는 빼고) → 확인 한 줄 ("HQ-0012 에 대표 · 조성우에게 확인 요청: '단가 표 이걸로 맞나요?' — 보낼까요?") → `addComment { taskId, body, requestTo: [id…] }`. 무엇을 확인할지는 본문에 담는다.
+- 확인: `listRequests` 의 받은 것에서 그 요청 (`commentId`) 을 찾아 → `acknowledgeRequest { commentId }` · 답을 함께 말했으면 `reply` 에 그 답.
+- 조회: `listRequests` → 보낸 것은 사람별 확인 여부 ("2명 중 1명 확인 · 조성우 아직 · 3일 전 요청"). 확인 취소 · 요청 취소는 hq 웹에서만 된다고 안내한다.
+
 ## 상태 — "시작했어" · "검토 올렸어" · "끝났어"
-- `changeTaskStatus` doing · review · done. 날짜는 상태가 맞춘다 — 따로 `updateTask` 하지 않는다.
+- `changeTaskStatus` doing · review · done. 날짜는 상태가 맞춘다 — 따로 `updateTask` 하지 않는다. 다른 사람이 바꾸면 만든 사람에게 상태 변경 알림이 간다.
+- **검토** 는 상태일 뿐 확인 요청이 아니다 — 누가 확인해야 하면 위 「확인 요청」 으로 보낸다.
 - `closeEpic` 이 열린 태스크 키 목록과 INVALID 를 주면 목록을 보여 주고 확인 뒤 `force: true`.
 
 ## 예

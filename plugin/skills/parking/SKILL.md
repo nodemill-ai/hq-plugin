@@ -24,7 +24,7 @@ description: hq 보류함 — "언젠가" 일 넣기 · 보기 · 꺼내기. "�
 
 ## 꺼내기 — "보류함의 X 꺼내 줘" · "꺼내서 로드맵으로 짜 줘"
 1. `listParkingItems { q: "X" }` → `getParkingItem { itemId }` (개념 · 링크).
-2. 모양을 추천 1개 + 근거로 정한다: 태스크 (한 사람 · 몇 주 안) · 에픽 (태스크 여럿) · 로드맵 (몇 달 · 에픽 여럿 → `roadmap` 스킬 "짜기" 절차). 사일로가 비었으면 이때 정한다.
+2. 모양을 추천 1개 + 근거로 정한다: 태스크 (한 사람 · 몇 주 안) · 에픽 (태스크 4~5개 · 더 크면 에픽 여럿 — `task` 스킬 「에픽으로 묶기」) · 로드맵 (몇 달 · 에픽 여럿 → `roadmap` 스킬 "짜기" 절차). 사일로가 비었으면 이때 정한다.
 3. 확인 뒤 만든다: `createTask` (`task` 스킬의 확인 한 줄 · `description` = 개념) · `createEpic` · `createRoadmap` (`goal` = 개념 요약 · 2000자 이하). `created: false` (같은 이름이 이미 있음) 면 그것을 기록할지 다른 이름으로 할지 묻는다.
 4. `takeOutParkingItem { itemId, made: [{ kind: "task" | "epic" | "roadmap", id }, …] }` — 만든 것 전부 (1~20개).
 5. 항목 링크는 자동으로 안 옮겨진다 — 태스크에 필요한 것만 `linkResource { taskId, kind, ref, title }`.

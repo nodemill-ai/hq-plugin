@@ -8,7 +8,7 @@ description: hq 로드맵 짜기 · 에픽 배치 · 진행 보기 · 닫기. "�
 사일로 1개 안의 몇 달짜리 계획 (목표 · 계획 기간) 과 그 아래 에픽을 만들고 진행을 본다. 계획 = 직접 적은 기간 (`planned`) · 실제 = 태스크에서 계산 (`actual`) · 지연 (`late`) = 열려 있는데 계획 끝이 지남. 웹 위치 = hq **태스크 탭 › 로드맵**.
 
 ## 짜기 — "ERP 로드맵 짜 줘 — 3월까지 첫 납품"
-1. 뽑는다: 사일로 · 이름 · 목표 1문장 · 계획 기간 · 단계 (에픽 후보). 기간 · 단계가 없으면 묻는다.
+1. 뽑는다: 사일로 · 이름 · 목표 1문장 · 계획 기간 · 단계 (에픽 후보 — 크기 기준은 `task` 스킬 「에픽으로 묶기」). 기간 · 단계가 없으면 묻는다.
 2. `listRoadmaps { siloId, activeOnly: false }` · `listEpics { siloId }` 로 같은 이름이 있는지 본다.
 3. 표로 확인받는다 (실제 날짜) — `| 에픽 | 계획 시작 | 계획 끝 | 첫 태스크 (선택) |` · 기존 에픽은 "기존 — 이 로드맵으로 옮김".
 4. `createRoadmap { siloId, name, goal, startDate, endDate }` → 에픽마다 `createEpic { siloId, name, roadmapId, startDate, endDate }`. `created: false` 면 `updateEpic { epicId, roadmapId, startDate, endDate }`. 첫 태스크는 원할 때만 `task` 스킬로.

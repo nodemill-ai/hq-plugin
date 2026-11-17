@@ -1,6 +1,6 @@
 ---
 name: task
-description: hq 태스크 만들기 · 조회 · 수정 · 댓글 · 확인 요청 · 상태 변경. "태스크 만들어", "할 일 등록", "ERP 에 ~ 추가", "내 할 일 뭐 있어", "조성우 할 일 뭐 있어", "이번 주 마감", "광일 건 뭐 있어", "HQ-12 마감 금요일로", "HQ-12 에 댓글 달아", "HQ-12 대표님한테 확인 요청해 줘", "확인했다고 해 줘", "내가 보낸 요청 확인됐어?", "HQ-12 끝났어" 라고 하면. 도구 — createTask · listTasks · getTaskByKey · updateTask · addComment · acknowledgeRequest · listRequests · changeTaskStatus (+ listSilos · listMembers · listEpics · listCustomers).
+description: hq 태스크 만들기 · 조회 · 수정 · 댓글 · 확인 요청 · 상태 변경. "태스크 만들어", "할 일 등록", "ERP 에 ~ 추가", "내 할 일 뭐 있어", "조성우 할 일 뭐 있어", "이번 주 마감", "광일 건 뭐 있어", "HQ-12 마감 금요일로", "HQ-12 에 댓글 달아", "HQ-12 대표님한테 확인 요청해 줘", "확인했다고 해 줘", "내가 보낸 요청 확인됐어?", "HQ-12 끝났어" 라고 하면. 도구 — createTask · listTasks · getTaskByKey · updateTask · addComment · acknowledgeRequest · listRequests · changeTaskStatus (+ listSilos · listMembers · listEpics · createEpic · listCustomers).
 ---
 
 # hq 태스크
@@ -10,10 +10,16 @@ description: hq 태스크 만들기 · 조회 · 수정 · 댓글 · 확인 요�
 ## 만들기
 1. 말에서 뽑는다: 제목 · 사일로 · 담당 · 마감 (+ 에픽 · 고객사 · 시작일 · 설명 — 있을 때만). 세부 할 일 여럿은 설명에 `- ` 목록.
 2. id 조회 (1회씩): `listSilos` · `listMembers { activeOnly: true }` (이름 또는 직책 `title` · 나 = `me: true` 행) · `listEpics` · 회사 이름이 나오면 `listCustomers` (표기 그대로 — "광일" → "광일금속" · 목록에 없으면 `customer` 를 넣지 않는다).
-3. 빠진 값은 추천을 채운다: 사일로 = 말에 나온 영역 · 고객사 · 같은 주제 태스크의 사일로 / 담당 = 이름 · 직책이 나오면 그 사람, 아니면 본인 (`me` 행 — 누구냐고 묻지 않는다) / 마감 = 근거 있는 것 하나 — 말의 기간 계산 ("이번 주" = 금요일) · 관련 에픽 · 로드맵의 계획 끝 · 미팅 날짜 (다음 주간 미팅 전) · 태스크 크기 (잡일 · 연락 · 확인 = 1~3일 · 문서 · 개발 = 1~2주), 근거가 없으면 "마감 미정 (담당이 정함)" / 에픽 = 제목이 기존 에픽과 겹치면 그 에픽.
+3. 빠진 값은 추천을 채운다: 사일로 = 말에 나온 영역 · 고객사 · 같은 주제 태스크의 사일로 / 담당 = 이름 · 직책이 나오면 그 사람, 아니면 본인 (`me` 행 — 누구냐고 묻지 않는다) / 마감 = 근거 있는 것 하나 — 말의 기간 계산 ("이번 주" = 금요일) · 관련 에픽 · 로드맵의 계획 끝 · 미팅 날짜 (다음 주간 미팅 전) · 태스크 크기 (잡일 · 연락 · 확인 = 1~3일 · 문서 · 개발 = 1~2주), 근거가 없으면 "마감 미정 (담당이 정함)" / 에픽 = 제목이 기존 에픽과 겹치면 그 에픽 (크기는 아래 「에픽으로 묶기」).
 4. **확인 한 줄** — 실제 날짜로: "HQ 사일로 · 담당 조성우 · 마감 2026-11-10 (추천 · 다음 미팅 전) — 이대로 만들까요? (바꿀 것만 말해 주세요)". 추천한 값은 "(추천)" 표시 · 마감 추천은 "(추천 · 근거 한 단어)". 사용자가 마감을 말하지 않았으면 이 한 줄에서 반드시 묻는다. 사용자가 전부 말했어도 이 한 줄은 거치고, 값을 바꾸면 고친 한 줄을 다시 보인다. "다음 금요일" 처럼 두 날짜로 읽히면 확인 한 줄에 둘 다 적어 고르게 한다.
 5. "ㅇㅇ · 좋아 · 그렇게" → `createTask { title, siloId, assigneeId, dueDate | duePending: true, epicId?, customer?, startDate?, description? }`.
 6. 보고: `HQ-0042 — 제목 / 사일로 / 담당 / 마감` 한 줄.
+
+## 에픽으로 묶기
+- 에픽 = 한 가지 결과물로 끝나는 태스크 4~5개 묶음. 진행하다 관련 태스크가 붙는 것은 괜찮다.
+- 기존 에픽에 붙이기 전에 `listEpics` 의 `progress.total` 로 현재 개수를 본다. 8개쯤 넘거나 주제가 달라지면 붙이지 않고 새 에픽을 제안한다 (같은 로드맵 아래 하나 더).
+- 새 에픽: `createEpic { siloId, name, roadmapId?, startDate?, endDate? }` — 확인 한 줄 뒤.
+- 넓은 요청을 쪼갤 때는 에픽 하나에 다 넣지 않고 결과물 단위로 에픽을 나눈다.
 
 ## 조회 — "내 할 일 뭐 있어" · "조성우 할 일" · "이번 주 마감" · "광일 건 뭐 있어"
 - `listTasks { mine?, assigneeIds?, dueWithinDays?, customer?, status? }` → 한 줄씩 `키 제목 (마감)`. 내 것 = `mine: true` · 다른 사람 · 여러 명 ("나랑 조성우") = `listMembers` 의 id 로 `assigneeIds`. 담당 이름은 `listMembers`. 마감으로 묻는 조회 ("이번 주 마감") 는 결과에서 `status: done` 을 뺀다 (끝낸 일도 계획 마감이 남는다).

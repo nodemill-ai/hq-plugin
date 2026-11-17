@@ -73,7 +73,7 @@ hq 는 미팅 위치 (`운영/미팅` · `고객사/<회사>/미팅`) 아래에�
    - 사내 갱신: `getTaskByKey` (id) → `changeTaskStatus` · 마감 · 담당이 바뀌었으면 `updateTask` → 이 미팅에도 `linkResource` (같은 형식).
    - 사내 종료: `getTaskByKey` → `changeTaskStatus { taskId, status: "done" }` → `addComment { taskId, body: "<YYYY-MM-DD> <주제 (공백)> 에서 종료 — <근거 한 줄>" }` → 이 미팅에도 `linkResource` (미팅 화면에서 종료가 보이게).
    - 사내 이월: `## 지난 액션` 에서 언급 없이 미완료로 남은 키도 전부 이 미팅에 `linkResource` — 안 그러면 다음 주 준비에서 빠진다.
-   - 사내 마감 미정: `dueDate` 없이 `duePending: true` 로 만든다 (담당의 브리핑 "확인 요청" 에 "마감 정하기" 로 뜬다).
+   - 사내 마감 미정: `dueDate` 없이 `duePending: true` 로 만든다 (담당의 홈 「내 할 일 › 날짜 미정」 · 브리핑 「날짜 미정」 에 뜬다).
    - 사내 "각자 · 모두": 참석자마다 1개 (`<할 일> — <이름>`) · 전부 이 미팅에 `linkResource`.
    - 담당이 정해지지 않은 행은 만들지 않는다 (키 칸 `(담당 정해지면)`).
 7. **다음 주간 미팅 노트** (사내 주간 미팅만 · 4번에서 승인받았으니 다시 묻지 않는다): 5 · 6 이 끝난 뒤

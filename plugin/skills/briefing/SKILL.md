@@ -18,7 +18,7 @@ description: hq 오늘 브리핑. "오늘 뭐 해야 돼", "브리핑", "할 일
 2. 총평 한 줄 — `todayCount` = 지난 일 + 오늘 마감 + 확인 요청 ("오늘 볼 것 4건 — 6일 지난 계약서 보완이 가장 급합니다").
 3. 액션 2~3개 제안 — 사용자가 고른 뒤 실행:
    - 지난 일 · 오늘 마감 → `changeTaskStatus` done 또는 `updateTask { dueDate }`
-   - 확인 요청 → 내용을 보여 주고 "확인했음" = `acknowledgeRequest { commentId }` · 답을 달면 `acknowledgeRequest { commentId, reply }`
+   - 확인 요청 → 내용을 보여 주고 "확인했음" = `acknowledgeRequest { commentId }` · 답을 달면 `acknowledgeRequest { commentId, reply }` (`reply` = 따옴표로 준 문장은 그대로 바로 · 요지만 말했으면 「공통 (글)」 대로 풀어 쓴 답을 보이고 확인 뒤)
    - 날짜 미정 → 날짜를 묻고 `updateTask { taskId, dueDate }`
    - 다 봤으면 → `markNotificationsRead { all: true }`
    - 새 일 · 확인 요청 보내기 → `task` 스킬
@@ -31,4 +31,5 @@ description: hq 오늘 브리핑. "오늘 뭐 해야 돼", "브리핑", "할 일
 - 다가오는 것 · 내가 보낸 요청 · 로드맵 · 최근 활동 · 결제는 넣지 않는다 (홈 · `task` · `cost` 스킬). 옛 필드 `dueByToday` · `assigned` · `completed` · `comments` 는 쓰지 않는다 (`alerts` 로).
 - **검토** 상태는 확인 요청이 아니다 — 확인 요청은 `requests` 뿐이다.
 - 사람 이름은 `listMembers` 1회로 매핑한다. 이메일은 쓰지 않는다.
+- 공통 (글): hq 에 쓰는 글 (설명, 댓글, 확인 요청, 답) 은 처음 읽는 사람이 회의록이나 대화 없이 그 글만 읽고 이해하게 풀어 쓴다. 해요체 문장으로 쓰고 명사로 끝내지 않는다. 어디서 나온 일인지, 왜 하는지, 지금 상태, 무엇을 하면 끝인지, 언제까지인지 (안 정했으면 그렇다고), 다음에 누가 무엇을 하는지 (남은 일이 없으면 없다고) 를 넣는다. 기호 (`·` `→` `=` `/` `—`) 로 낱말을 이어 붙이지 않고 말로 잇는다 (늘어놓을 때는 쉼표나 `와`, `과`). 처음 읽는 사람이 모를 수 있는 번호, 키, 파일, 화면, 도구 이름, 내부 용어는 무엇인지, 어디인지 함께 쓴다. 일에 대한 사실 (날짜, 금액, 이름, 결정, 이유) 은 원문에 있는 것만 쓴다. 길이는 필요한 만큼 쓴다.
 - 공통: id 는 조회로만 얻는다 · `FORBIDDEN` = admin 에게 요청 안내 · 401 · 연결 오류 = "hq 다시 로그인 (Code `/mcp` · claude.ai 플러그인 Connectors 탭)" 안내 후 멈춤 · 결과 JSON 을 붙이지 않는다.

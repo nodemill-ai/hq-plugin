@@ -10,7 +10,7 @@ description: 회사 공유 드라이브 파일 올리기 · 찾기 · 태스크�
 ## 올리기 — "드라이브에 올려"
 1. `listDriveFolder` (루트) → `folderId` 를 따라 내려간다 (계약서 → `운영/계약`). 이름을 알면 `searchDrive { q }` 의 `isFolder`.
 2. 맞는 폴더가 없으면 경로 1개를 제안 · 승인 뒤 커넥터로 만든다 (루트 바로 아래는 만들지 않는다).
-3. 이름 `YYYYMMDD_주제_버전.확장자` (`20261031_광일금속_견적_v1.pdf`) — 사용자가 준 이름이 있으면 그대로.
+3. 이름 `YYYYMMDD_주제_버전.확장자` (`20261031_가나금속_견적_v1.pdf`) — 사용자가 준 이름이 있으면 그대로.
 4. 경로 · 이름 한 줄 확인 → `create_file { parentId, title, disableConversionToGoogleType: true, textContent | base64Content + contentMimeType }`.
 5. `listDriveFolder { folderId }` 로 보이는지 확인 → 이름 · 경로 · 링크 (`webViewLink` 또는 `https://hq.nodemill.ai/files?file=<id>`). 관련 태스크가 있으면 연결을 제안.
 
@@ -22,7 +22,7 @@ description: 회사 공유 드라이브 파일 올리기 · 찾기 · 태스크�
 - `getTaskByKey` → `linkResource { taskId, kind: "file", ref: <파일 id>, title: <파일 이름> }`.
 
 ## 예
-"이 견적서 광일 폴더에 올려" → `searchDrive { q: "광일금속" }` → "`고객사/광일금속/견적` 에 `20261104_광일금속_견적_v1.pdf` 로 올릴까요?" → `create_file`
+"이 견적서 가나 폴더에 올려" → `searchDrive { q: "가나금속" }` → "`고객사/가나금속/견적` 에 `20261104_가나금속_견적_v1.pdf` 로 올릴까요?" → `create_file`
 
 ## 규칙
 - 영수증은 `cost` 스킬 · 미팅 회의록 · 자료는 `meeting` 스킬.

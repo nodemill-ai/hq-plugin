@@ -21,7 +21,7 @@ Claude Code 에 이 레포를 로컬 마켓플레이스로 따로 설치 (`hq@no
 
 ## 개발자 메모
 
-- 이 레포 (`nodemill-ai/hq-plugin`) 가 플러그인 **원본** 이다 (hq 레포에는 없다). 바꾸면 `scripts/check.sh` → commit · push → 자동 동기화. 규칙은 루트 `CLAUDE.md`.
+- 이 레포 (`nodemill-ai/hq-plugin`) 가 플러그인 **원본** 이다 (hq 레포에는 없다). 바꾸면 commit · push → 자동 동기화. 올리기 전 검사 (`scripts/check.sh`) 는 pre-push 훅이 돌린다 — clone 뒤 한 번 `git config core.hooksPath .githooks`. 규칙은 루트 `CLAUDE.md`.
 - 로컬 검토: `claude --plugin-dir ./plugin`, 또는 `/plugin marketplace add <이 레포 경로>` → `/plugin install hq@nodemill` (구성원 계정의 `hq@synced` 와 중복되므로 하나만).
 - 로컬 dev 서버 (`hq` 레포 `pnpm dev`) 에 붙이려면 플러그인 대신: `claude mcp add --transport http hq-local http://localhost:3000/api/mcp` → `/mcp` 로그인 (dev DB 구성원의 Google 계정 · OAuth). 스크립트 · curl 은 개인 키 (`pnpm mcp:issue-key <email>` → `Authorization: Bearer hq_…`) — 두 방식을 `/api/mcp` 가 모두 받는다.
 - 스킬 프런트매터는 `name` · `description` (+ `license` · `compatibility` · `metadata` · `allowed-tools`) 만 — claude.ai 가 그 외 필드를 거부한다. `scripts/check.sh` 가 검사한다.

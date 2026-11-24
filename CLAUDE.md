@@ -7,7 +7,7 @@ nodemill hq 업무툴의 Claude 플러그인 **원본** 이자 공개 마켓플�
 - `.mcp.json` 은 프로덕션 `https://hq.nodemill.ai/api/mcp` 만, 헤더 없음 (OAuth). 로컬 dev 서버 연결은 `plugin/README.md § 개발자 메모`.
 
 ## 검증
-- `scripts/check.sh` = 스킬 프런트매터 검사 (`name` · `description` · `license` · `compatibility` · `metadata` · `allowed-tools` 만 — claude.ai 가 그 외 키를 거부) → `claude plugin validate plugin` → `claude plugin validate .`. push 전에 돌린다.
+- `scripts/check.sh` = 스킬 프런트매터 검사 (`name` · `description` · `license` · `compatibility` · `metadata` · `allowed-tools` 만 — claude.ai 가 그 외 키를 거부) → `claude plugin validate plugin` → `claude plugin validate .`. push 하면 `.githooks/pre-push` 가 돌리고 실패하면 push 를 막는다 — clone 마다 한 번 `git config core.hooksPath .githooks` (worktree 는 따로 필요 없다).
 - 로컬 검토: `claude --plugin-dir ./plugin` 또는 `/plugin marketplace add <이 레포 경로>` → `/plugin install hq@nodemill`. 구성원 계정에 `hq@synced` 가 있으면 둘이 중복된다 (도구 120개) — 하나만.
 
 ## 규칙

@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+# 올리기 전 검사 — 실패하면 push 를 막는다 (main 에 올라가면 공개 마켓플레이스로 나간다).
+# 켜기 (clone 마다 한 번): git config core.hooksPath .githooks
+root="$(git rev-parse --show-toplevel)" || exit 1
+if ! out="$(bash "$root/scripts/check.sh" 2>&1)"; then
+  # 실패 줄만 보인다. 없으면 (validate 쪽 실패) 끝부분을 보인다.
+  printf '%s\n' "$out" | grep -E '^FAIL' >&2 || printf '%s\n' "$out" | tail -15 >&2
+  echo "pre-push: scripts/check.sh 실패 — push 를 막았다" >&2
+  exit 1
+fi
+echo "pre-push: CHECK OK" >&2

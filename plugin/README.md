@@ -33,12 +33,13 @@ nodemill 사내 업무툴 **hq** 를 Claude 에서 쓴다. 연결은 hq Google �
 
 ## 2. 하지 말 것 (중복 주의)
 
-Claude Code 에 이 레포를 로컬 마켓플레이스로 따로 설치 (`hq@nodemill`, 개발자용) 하면 hq 서버가 **두 벌** 뜬다 (도구 120개). 구성원은 1 의 synced 만 쓴다.
+Claude Code 에서 `hq@synced` (1 의 claude.ai 설치) 와 `hq@nodemill` (이 레포를 마켓플레이스로 설치) 이 함께 켜지면 hq 서버가 **두 벌** 뜬다 (도구 120개). 구성원은 1 의 synced 만 쓴다. nodemill 개발 Mac 은 `hq@nodemill` 을 쓰므로 claude.ai 에 hq 플러그인을 붙이지 않는다 (붙였으면 둘 중 하나를 끈다).
 
 ## 개발자 메모
 
 - 이 레포 (`nodemill-ai/hq-plugin`) 가 플러그인 **원본** 이다 (hq 레포에는 없다). 바꾸면 `scripts/check.sh` → commit · push → 자동 동기화. 규칙은 루트 `CLAUDE.md`.
-- 로컬 검토: `claude --plugin-dir ./plugin`, 또는 `/plugin marketplace add <이 레포 경로>` → `/plugin install hq@nodemill` (구성원 계정의 `hq@synced` 와 중복되므로 하나만).
+- 개발 Mac 설치: `claude plugin marketplace add nodemill-ai/hq-plugin` → `claude plugin install hq@nodemill` (루트 `scripts/new-mac/setup.sh` 가 한다). 새로 켠 뒤 첫 세션은 설치만 되고 다음 세션부터 연결된다.
+- 로컬 검토: `claude --plugin-dir ./plugin`, 또는 `/plugin marketplace add <이 레포 경로>` → `/plugin install hq@nodemill` (이미 켜진 `hq@nodemill` · 계정의 `hq@synced` 와 겹치면 하나만).
 - 로컬 dev 서버 (`hq` 레포 `pnpm dev`) 에 붙이려면 플러그인 대신: `claude mcp add --transport http hq-local http://localhost:3000/api/mcp` → `/mcp` 로그인 (dev DB 구성원의 Google 계정 · OAuth). 스크립트 · curl 은 개인 키 (`pnpm mcp:issue-key <email>` → `Authorization: Bearer hq_…`) — 두 방식을 `/api/mcp` 가 모두 받는다.
 - 스킬 프런트매터는 `name` · `description` (+ `license` · `compatibility` · `metadata` · `allowed-tools`) 만 — claude.ai 가 그 외 필드를 거부한다. `scripts/check.sh` 가 검사한다.
 - 비공개 레포 (`jaewan-nodemill/hq`) 를 마켓플레이스로 직접 추가하는 건 **추가하는 사람의 GitHub 계정에 그 레포 권한이 있을 때만** 된다 (Claude GitHub App 연결) — 그래서 공개 레포를 쓴다 (claude.com/docs/plugins/overview, 2026-10-30).

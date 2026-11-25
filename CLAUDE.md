@@ -8,7 +8,7 @@ nodemill hq 업무툴의 Claude 플러그인 **원본** 이자 공개 마켓플�
 
 ## 검증
 - `scripts/check.sh` = 스킬 프런트매터 검사 (`name` · `description` · `license` · `compatibility` · `metadata` · `allowed-tools` 만 — claude.ai 가 그 외 키를 거부) → `claude plugin validate plugin` → `claude plugin validate .`. push 하면 `.githooks/pre-push` 가 돌리고 실패하면 push 를 막는다 — clone 마다 한 번 `git config core.hooksPath .githooks` (worktree 는 따로 필요 없다).
-- 로컬 검토: `claude --plugin-dir ./plugin` 또는 `/plugin marketplace add <이 레포 경로>` → `/plugin install hq@nodemill`. 개발 Mac 은 `hq@nodemill` (user 범위) 이 켜져 있다 — 로컬 검토본이나 계정의 `hq@synced` 와 겹치면 hq 서버가 두 벌 뜬다 (도구 120개) → 하나만.
+- 로컬 검토: `claude --plugin-dir ./plugin`. 로컬 경로를 마켓플레이스로 추가하지 않는다 (이 Mac 의 `hq@nodemill` 이 그 폴더를 가리키게 바뀐다 · 되돌리기는 `plugin/README.md § 개발자 메모`). 계정의 `hq@synced` 와 겹치는 것 같으면 Claude Code 에서만 하나를 끈다.
 
 ## 규칙
 - 스킬이 부르는 MCP 도구 이름 · 인자는 hq 레포 `server/mcp/server.ts` (`MCP_TOOL_NAMES`, 60개) 가 원본 — hq 에서 도구를 바꾸면 여기 스킬도 같이 고친다.

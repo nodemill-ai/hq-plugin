@@ -1,6 +1,6 @@
 ---
 name: meeting
-description: 미팅 준비 (안건 · 지난 액션 — 완료 · 진행 중 · 예정을 로드맵 · 에픽으로) · 회의록 정리 · 자료 올리기 · 찾기. 사용자가 "주간 미팅 준비해 줘", "11/25 주간 미팅에 안건 추가해 — …", "목요일 로드맵 미팅 노트 만들어", "주간 미팅 정리해 줘" (+ CLOVA Note 요약), "회의록 정리해 줘", "미팅 정리해 줘", "오늘 가나 미팅 정리", "지난 가나 미팅 뭐였지", "ERP 시연 때 뭐 정했지", "이 슬라이드 어제 미팅에 넣어" 라고 하면 hq MCP listEvents · listMeetings · getMeeting 으로 일정 · 미팅을 찾고, listTasks { completedFrom · status } · listEpics · listRoadmaps 로 지난 미팅 이후 끝낸 일 · 다음 주까지 끝낼 일을 로드맵 · 에픽으로 묶고, prepareMeeting · addMeetingAgenda · writeMeetingMinutes 로 회의록.md 를 만들고 · 안건을 넣고 · 채운 뒤 안건별 액션을 createTask · changeTaskStatus · linkResource(kind=meeting) 로 hq 태스크에 반영한다. 자료 파일만 Google Drive 커넥터로 올린다.
+description: 미팅 안건 · 노트를 준비하고 회의록 (CLOVA 요약) 을 정리하고 지난 미팅을 찾는다. "주간 미팅 준비해 줘", "미팅에 안건 추가해", "회의록 정리해 줘", "지난 가나 미팅 뭐였지" 라고 할 때.
 ---
 
 # 미팅

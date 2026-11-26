@@ -1,6 +1,6 @@
 ---
 name: parking
-description: hq 보류함 — "언젠가" 일 넣기 · 보기 · 꺼내기. "보류함에 넣어", "언젠가 해야 하는데", "나중에 — 사무실 생기면", "HQ-0037 보류함으로", "보류함 보여 줘", "꺼낼 것 있어?", "보류함의 X 꺼내 줘", "꺼내서 로드맵으로 짜 줘" 라고 하면. 도구 — parkItem · listParkingItems · getParkingItem · updateParkingItem · takeOutParkingItem · deleteParkingItem (+ getTaskByKey · listSilos · listTasks · listEvents · createTask · createEpic · createRoadmap · linkResource).
+description: 지금 못 하고 조건이 되면 할 일을 hq 보류함에 넣고 보고 꺼낸다. "보류함에 넣어", "나중에 — 사무실 생기면", "HQ-0037 보류함으로", "꺼낼 것 있어?" 라고 할 때.
 ---
 
 # hq 보류함

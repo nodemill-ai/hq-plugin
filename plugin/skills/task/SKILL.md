@@ -1,6 +1,6 @@
 ---
 name: task
-description: hq 태스크 만들기 · 조회 · 수정 · 댓글 · 확인 요청 · 상태 변경. "태스크 만들어", "할 일 등록", "ERP 에 ~ 추가", "내 할 일 뭐 있어", "홍길동 할 일 뭐 있어", "이번 주 마감", "가나 건 뭐 있어", "HQ-12 마감 금요일로", "HQ-12 에 댓글 달아", "HQ-12 대표님한테 확인 요청해 줘", "확인했다고 해 줘", "내가 보낸 요청 확인됐어?", "HQ-12 끝났어" 라고 하면. 도구 — createTask · listTasks · getTaskByKey · updateTask · addComment · acknowledgeRequest · listRequests · changeTaskStatus (+ listSilos · listMembers · listEpics · createEpic · listCustomers).
+description: hq 태스크를 만들고 조회하고 고치고 댓글 · 확인 요청 · 상태를 다룬다. "태스크 만들어", "내 할 일 뭐 있어", "HQ-12 대표님한테 확인 요청해 줘", "HQ-12 끝났어" 라고 할 때.
 ---
 
 # hq 태스크

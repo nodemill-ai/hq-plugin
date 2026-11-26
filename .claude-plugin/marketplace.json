@@ -7,7 +7,7 @@
     {
       "name": "hq",
       "source": "./plugin",
-      "description": "hq 업무툴: 브리핑 · 태스크 · 로드맵 · 일정 · 보류함 · 위키 · 파일 · 비용 · 미팅 · 사용법 스킬 + HQ MCP 서버 (hq Google 로그인 · OAuth)",
+      "description": "hq 업무툴을 Claude 에서 쓴다. 태스크 · 일정 · 미팅 · 문서 · 비용을 말로 처리한다.",
       "category": "productivity"
     }
   ]

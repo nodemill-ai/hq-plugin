@@ -1,6 +1,6 @@
 ---
 name: file
-description: 회사 공유 드라이브 파일 올리기 · 찾기 · 태스크에 붙이기. "드라이브에 올려", "이 파일 저장해", "계약서 어디 있어", "~ 파일 찾아줘", "이 파일 태스크에 붙여" 라고 하면. 도구 — hq listDriveFolder · searchDrive · linkResource (조회 · 연결) · Google Drive 커넥터 create_file (업로드).
+description: 회사 공유 드라이브에 파일을 올리고 찾고 태스크에 붙인다. "드라이브에 올려", "계약서 어디 있어", "이 파일 태스크에 붙여" 라고 할 때.
 ---
 
 # 공유 드라이브 파일

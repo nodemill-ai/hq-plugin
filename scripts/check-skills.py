@@ -18,7 +18,8 @@ BODY_MAX = 5500         # SKILL.md 본문 — compaction 뒤 스킬당 앞 5,000
 PLUGIN_DESC_MAX = 100   # plugin.json · marketplace.json 플러그인 소개문
 RULE = " — 작성 규칙 = CLAUDE.md § 스킬 작성"
 
-TOOL_NAME = re.compile(r"\b[a-z]+[A-Z][A-Za-z0-9]*\b|\b[a-z0-9]+_[a-z0-9_]+\b")  # listTasks · create_event
+# listTasks · create_event — 경계는 ASCII 로 본다 (\b 는 한글도 글자로 쳐서 'getBriefing으로' 를 놓친다)
+TOOL_NAME = re.compile(r"(?<![A-Za-z0-9_])(?:[a-z]+[A-Z][A-Za-z0-9]*|[a-z0-9]+_[a-z0-9_]+)(?![A-Za-z0-9_])")
 PHRASE = re.compile(r'"[^"]+"')
 REF_LINK = re.compile(r"references/([^\s`)\]]+?\.md)")
 

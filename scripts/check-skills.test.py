@@ -86,6 +86,11 @@ class CheckSkills(unittest.TestCase):
         self.write("plugin/skills/demo/SKILL.md", skill(desc='데모를 create_event 로 한다. "가", "나", "다" 라고 할 때.'))
         self.assert_fails("create_event")
 
+    def test_tool_name_with_korean_ending_fails(self):
+        self.write("plugin/skills/demo/SKILL.md", skill(desc='데모를 getBriefing으로 모아 create_event로 잡는다. "가", "나", "다" 라고 할 때.'))
+        self.assert_fails("getBriefing")
+        self.assert_fails("create_event")
+
     def test_no_purpose_sentence_fails(self):
         self.write("plugin/skills/demo/SKILL.md", skill(desc='데모 "가", "나", "다" 라고 하면 한다.'))
         self.assert_fails("목적")

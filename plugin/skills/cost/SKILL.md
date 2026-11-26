@@ -1,6 +1,6 @@
 ---
 name: cost
-description: hq 비용 기록 · 조회 · 고정비. "영수증 등록", "법카 썼어", "11월 14일 회식 법카 12만 8천원", "AWS 지난달 얼마였지", "이거 얼마였지" (영수증 사진), "이번 달 고정비", "구독 추가", "Claude 구독 해지" 라고 하면. 도구 — createExpense · updateExpense · deleteExpense · listExpenses · listCostItems · createCostItem · updateCostItem · listPaymentCards · getCostSummary (+ searchDrive).
+description: hq 에 지출 · 영수증을 기록하고 고정비 · 구독을 조회하거나 고친다. "영수증 등록", "법카 썼어", "AWS 지난달 얼마였지", "Claude 구독 해지" 라고 할 때.
 ---
 
 # 비용 (영수증 · 법인카드 · 고정비)

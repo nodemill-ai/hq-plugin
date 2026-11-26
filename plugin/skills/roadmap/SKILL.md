@@ -1,6 +1,6 @@
 ---
 name: roadmap
-description: hq 로드맵 짜기 · 에픽 배치 · 진행 보기 · 닫기. "로드맵 짜 줘", "ERP 로드맵 만들어", "3월까지 ~ 계획 세워 줘", "이 에픽 로드맵에 넣어", "에픽 기간 바꿔", "로드맵 진행 어때", "늦어지는 거 있어?" 라고 하면. 도구 — listRoadmaps · getRoadmap · createRoadmap · updateRoadmap · closeRoadmap · reopenRoadmap · createEpic · updateEpic (+ takeOutParkingItem).
+description: hq 로드맵을 짜고 에픽을 배치하고 진행을 본다. "로드맵 짜 줘", "이 에픽 로드맵에 넣어", "에픽 기간 바꿔", "늦어지는 거 있어?" 라고 할 때.
 ---
 
 # hq 로드맵

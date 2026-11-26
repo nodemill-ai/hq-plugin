@@ -1,6 +1,6 @@
 ---
 name: wiki
-description: hq 위키 (회사 문서) 쓰기 · 수정 · 삭제 · 찾기. "위키에 올려", "이거 위키에 정리해", "결정 기록으로 저장", "위키 고쳐", "위키 지워", "위키에서 ~ 찾아봐", "~ 가이드 어디 있어", "계정 어딨지", "~ 비밀번호 뭐야" 라고 하면. 도구 — listWikiTree · getWikiPage · writeWikiPage · deleteWikiPage · linkResource.
+description: 회사 문서 · 결정 기록 · 계정 안내가 있는 hq 위키를 쓰고 고치고 찾는다. "위키에 정리해", "결정 기록으로 저장", "~ 가이드 어디 있어", "~ 비밀번호 뭐야" 라고 할 때.
 ---
 
 # hq 위키

@@ -1,6 +1,6 @@
 ---
 name: briefing
-description: hq 오늘 브리핑. "오늘 뭐 해야 돼", "브리핑", "할 일 정리", "밀린 거 있어?", "알림 확인", "팀 진행 어때" 라고 하면. 도구 — getBriefing (+ changeTaskStatus · updateTask · acknowledgeRequest · getTaskByKey · markNotificationsRead · listEpics).
+description: hq 의 오늘 할 일 · 지난 일 · 알림 · 팀 진행을 모아 보여 준다. "오늘 뭐 해야 돼", "밀린 거 있어?", "알림 확인", "팀 진행 어때" 라고 할 때.
 ---
 
 # hq 브리핑

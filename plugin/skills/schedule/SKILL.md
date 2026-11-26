@@ -1,6 +1,6 @@
 ---
 name: schedule
-description: 회사 캘린더 일정 잡기 · 옮기기 · 취소 · 조회. "일정 잡아 줘", "목요일 3시 가나 미팅", "매주 월요일 10시 주간 회의", "내일 미팅 옮겨 줘", "워크숍 취소해 줘", "이번 주 일정", "휴가 등록" 이라고 하면. 도구 — hq listEvents (조회) · Google 캘린더 커넥터 create_event · update_event · delete_event · list_events (쓰기).
+description: 회사 캘린더 일정을 잡고 옮기고 취소하고 조회한다. "목요일 3시 가나 미팅", "내일 미팅 옮겨 줘", "이번 주 일정", "휴가 등록" 이라고 할 때.
 ---
 
 # 일정 (회사 캘린더 nodemill)
